@@ -1,0 +1,16 @@
+[project]
+name = "bermudan-swaption-api"
+version = "0.1.0"
+description = "FastAPI wrapper around a C++ Bermudan pricer via pybind11"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.111",
+  "uvicorn>=0.30",
+  "pydantic>=2.7"
+]
+
+[tool.uvicorn]
+factory = false
+host = "0.0.0.0"
+port = 8000
+
