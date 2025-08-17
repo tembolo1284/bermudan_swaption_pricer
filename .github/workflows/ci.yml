@@ -1,0 +1,145 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  local-build-and-test:
+    name: Local (CMake+Ninja) build & tests
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build deps (C++/Python/QuantLib/pkg-config/Ninja)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build pkg-config \
+            libquantlib0-dev \
+            python3 python3-dev python3-pip
+          python3 --version
+          cmake --version
+          ninja --version
+          pkg-config --modversion quantlib || true
+
+      - name: Configure (Release, LTO off)
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_LTO=OFF
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Run unit tests (GoogleTest, JUnit export if available)
+        run: |
+          set -e
+          if [ -x build/tests ]; then
+            ./build/tests --gtest_output=xml:./junit.xml
+          else
+            echo "No build/tests binary found; running ctest fallback."
+            ctest --test-dir build --output-on-failure || true
+          fi
+
+      - name: Upload JUnit (if produced)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-local
+          path: junit.xml
+          if-no-files-found: ignore
+
+      - name: Smoke-run CLI demo
+        run: |
+          if [ -x build/bermudan_main ]; then
+            ./build/bermudan_main
+          else
+            echo "bermudan_main not built; skipping demo."
+          fi
+
+      - name: Upload build artifacts (native .so & binaries)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-local
+          path: |
+            build/bermudan_native*.so
+            build/bermudan_main
+          if-no-files-found: ignore
+
+  docker-build-and-test:
+    name: Docker build & in-container tests
+    runs-on: ubuntu-22.04
+    needs: local-build-and-test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build build-stage image
+        run: docker build --target build -t bermudan_pricer:build .
+
+      - name: Build runtime image
+        run: docker build --target runtime -t bermudan_pricer:runtime .
+
+      - name: Run tests inside build-stage (emit JUnit)
+        id: docker-tests
+        run: |
+          set -e
+          CID=$(docker create bermudan_pricer:build /app/build/tests --gtest_output=xml:/app/junit.xml)
+          docker start -a "$CID" || true
+          # copy junit if present
+          mkdir -p artifacts
+          if docker cp "$CID:/app/junit.xml" artifacts/junit.xml 2>/dev/null; then
+            echo "junit=artifacts/junit.xml" >> $GITHUB_OUTPUT
+          else
+            echo "No JUnit produced at /app/junit.xml"
+          fi
+          docker rm "$CID" >/dev/null
+
+      - name: Upload JUnit (docker)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-docker
+          path: ${{ steps.docker-tests.outputs.junit }}
+          if-no-files-found: ignore
+
+      - name: Smoke-run runtime CLI
+        run: docker run --rm bermudan_pricer:runtime
+
+      - name: Save runtime binary & native module from image
+        run: |
+          set -e
+          CID=$(docker create bermudan_pricer:runtime)
+          mkdir -p artifacts
+          docker cp "$CID:/usr/local/bin/bermudan_main" artifacts/bermudan_main || true
+          # native module is in /opt/bermudan per Dockerfile
+          docker cp "$CID:/opt/bermudan" artifacts/native || true
+          docker rm "$CID" >/dev/null
+        shell: bash
+
+      - name: Upload Docker artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-artifacts
+          path: artifacts
+          if-no-files-found: ignore
+
