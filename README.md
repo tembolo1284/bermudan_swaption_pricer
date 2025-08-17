@@ -16,40 +16,70 @@ We expose functionality through:
 ## Project Layout
 
 bermudan_swaption_pricer/
+
 ├── include/ # Public C++ headers
+
 │ ├── YieldCurveBuilder.hpp
+
 │ ├── SwapBuilder.hpp
+
 │ ├── SwaptionCalibrator.hpp
+
 │ ├── BermudanSwaptionPricer.hpp
+
 ├── src/ # Library implementations
+
 │ ├── YieldCurveBuilder.cpp
+
 │ ├── SwapBuilder.cpp
+
 │ ├── SwaptionCalibrator.cpp
+
 │ ├── BermudanSwaptionPricer.cpp
+
 ├── bindings/ # pybind11 bindings
+
 │ └── bermudan_bindings.cpp
+
 ├── python_api/ # FastAPI service
+
 │ ├── app.py
+
 │ ├── pyproject.toml
+
 │ └── README.md
+
 ├── test/ # GoogleTest unit tests
+
 │ ├── test_curve.cpp
+
 │ ├── test_swap.cpp
+
 │ ├── test_bermudan.cpp
+
 │ ├── test_calibration.cpp
+
 ├── main.cpp # CLI demo entry point
+
 ├── CMakeLists.txt # Build system
+
 ├── toolchain.sh # Wrapper script for build/run/test (local & docker)
+
 ├── Dockerfile # Multi-stage build (CI, API, runtime)
+
 ├── .dockerignore
+
 ├── .github/workflows/ci.yml # GitHub Actions workflow
+
 ├── Jenkinsfile # Jenkins pipeline
+
 └── README.md
 
 
 ## Installation (Ubuntu)
 
 ### Install dependencies
+
 ```bash
 sudo apt-get update
 sudo apt-get install -y \
@@ -62,10 +92,13 @@ Ninja: ninja-build (faster builds)
 Google Test: pulled automatically via CMake (no system install needed)
 
 Python FastAPI API: pip install fastapi uvicorn pydantic
-
-Building Locally (CMake + Ninja)
 ```
+
+### Building Locally (CMake + Ninja)
+
+```bash
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
 cmake --build build
 ```
 
@@ -79,48 +112,73 @@ build/tests — Google Test suite
 
 build/bermudan_native.*.so — Python extension module (for FastAPI)
 
-Running Tests
-```
+
+
+###Running Tests
+
+```bash
 ctest --test-dir build --output-on-failure
+
 # or directly
+
 ./build/tests
 ```
 
-Running the CLI
-```
+### Running the CLI
+
+```bash
+
 ./build/bermudan_main
+
 ```
+
 This prints Bermudan swaption NPVs for ATM, OTM, and ITM strikes using different models.
 
-Running the FastAPI Server (Local)
+## Running the FastAPI Server (Local)
 
-```
-# Make C++ Python extension importable
+
+### Make C++ Python extension importable
+
+```bash
+
 export PYTHONPATH="$PWD/build:$PYTHONPATH"
+
 ```
 
-## Install API deps
+### Install API deps
+
+```bash
+
 cd python_api
-pip install -r <(echo -e "fastapi\nuvicorn\npydantic")
 
-# Run FastAPI
+pip install -r <(echo -e "fastapi\nuvicorn\npydantic")
 ```
+### Run FastAPI
+
+```bash
+
 uvicorn app:app --reload --host 0.0.0.0 --port 8000
-```
+
+
 Open interactive docs: http://localhost:8000/docs
 
-Example request:
-
 ```
+
+### Example request:
+
+```bash
+
 curl -X POST http://localhost:8000/price \
   -H "Content-Type: application/json" \
   -d '{"date":"2025-07-15","flat_rate":0.035,"model":"hw","engine":"tree","strike_multiplier":1.0}'
+
 ```
 
-**Docker Usage**
+### Docker Usage
+
 Build and run inside a container:
 
-```
+```bash
 # Build CI image (lib + tests)
 docker build -t bermudan-ci .
 
@@ -134,7 +192,8 @@ docker build -t bermudan-api .
 docker run --rm -p 8000:8000 bermudan-api
 ```
 
-## Toolchain Script
+### Toolchain Script
+
 Use toolchain.sh instead of remembering commands:
 
 ```
@@ -148,7 +207,8 @@ Use toolchain.sh instead of remembering commands:
 ./toolchain.sh serve-api --in=docker  # docker API
 ```
 
-## **Features Covered**
+### Features Covered
+
 Yield curve construction (flat)
 
 Swap builder (payer, ATM/OTM/ITM strikes)
@@ -161,7 +221,7 @@ Tree engines (TreeSwaptionEngine)
 
 Finite-difference engines (FdHullWhiteSwaptionEngine, FdG2SwaptionEngine)
 
-Unit tests:
+### Unit tests:
 
 Discount curve sanity
 
@@ -171,7 +231,7 @@ Bermudan monotonicity (ITM > ATM > OTM)
 
 Calibration vs market vol diagonal (from paper)
 
-## **CI Pipelines**
+### CI Pipelines
 
 GitHub Actions (.github/workflows/ci.yml)
 
@@ -187,12 +247,12 @@ Same flow as GitHub Actions
 
 Publishes JUnit test reports
 
-## **Roadmap**
+### Roadmap
 
- Extend FastAPI with calibration endpoints
+Extend FastAPI with calibration endpoints
 
- Add JSON input/output for flexible pricing requests
+Add JSON input/output for flexible pricing requests
 
- Support more term structure bootstrapping (beyond flat curve)
+Support more term structure bootstrapping (beyond flat curve)
 
- Cross-platform GitHub Actions matrix (Linux/macOS/Windows)
+Cross-platform GitHub Actions matrix (Linux/macOS/Windows)
