@@ -1,7 +1,7 @@
 # Make file names absolute:
 #
-get_filename_component(filename "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-subbuild/pybind11-populate-prefix/src/v2.12.0.zip" ABSOLUTE)
-get_filename_component(directory "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-src" ABSOLUTE)
+get_filename_component(filename "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-subbuild/pybind11-populate-prefix/src/v2.12.0.zip" ABSOLUTE)
+get_filename_component(directory "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-src" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

@@ -1,7 +1,7 @@
 # Make file names absolute:
 #
-get_filename_component(filename "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.14.0.zip" ABSOLUTE)
-get_filename_component(directory "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-src" ABSOLUTE)
+get_filename_component(filename "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.14.0.zip" ABSOLUTE)
+get_filename_component(directory "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-src" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

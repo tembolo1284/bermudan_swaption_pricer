@@ -1,4 +1,4 @@
-# Install script for directory: /home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-subbuild
+# Install script for directory: /home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-subbuild
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-subbuild/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-subbuild/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

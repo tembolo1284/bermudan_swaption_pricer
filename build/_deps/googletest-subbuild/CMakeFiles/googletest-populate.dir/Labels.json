@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule"
 		},
 		{
-			"file" : "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update.rule"
+			"file" : "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update.rule"
 		}
 	],
 	"target" : 

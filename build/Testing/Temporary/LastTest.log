@@ -1,0 +1,44 @@
+Start testing: Aug 17 10:38 EDT
+----------------------------------------------------------
+1/1 Testing: all_tests
+1/1 Test: all_tests
+Command: "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/tests"
+Directory: /home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build
+"all_tests" start time: Aug 17 10:38 EDT
+Output:
+----------------------------------------------------------
+Running main() from /home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/googletest-src/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 4 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from YieldCurveBuilder
+[ RUN      ] YieldCurveBuilder.FlatCurveBuilds
+[       OK ] YieldCurveBuilder.FlatCurveBuilds (1 ms)
+[----------] 1 test from YieldCurveBuilder (1 ms total)
+
+[----------] 1 test from SwapBuilder
+[ RUN      ] SwapBuilder.FairRateAndNPVSign
+[       OK ] SwapBuilder.FairRateAndNPVSign (4 ms)
+[----------] 1 test from SwapBuilder (4 ms total)
+
+[----------] 1 test from BermudanSwaptionPricer
+[ RUN      ] BermudanSwaptionPricer.MonotonicityHW
+[       OK ] BermudanSwaptionPricer.MonotonicityHW (11 ms)
+[----------] 1 test from BermudanSwaptionPricer (11 ms total)
+
+[----------] 1 test from Calibration
+[ RUN      ] Calibration.Diagonal_G2pp_HW_BK
+[       OK ] Calibration.Diagonal_G2pp_HW_BK (1331 ms)
+[----------] 1 test from Calibration (1331 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 4 test suites ran. (1348 ms total)
+[  PASSED  ] 4 tests.
+<end of output>
+Test time =   1.37 sec
+----------------------------------------------------------
+Test Passed.
+"all_tests" end time: Aug 17 10:38 EDT
+"all_tests" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Aug 17 10:38 EDT

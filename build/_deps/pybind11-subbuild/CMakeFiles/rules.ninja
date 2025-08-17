@@ -23,7 +23,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/bin/cmake --regenerate-during-build -S/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-subbuild -B/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-subbuild
+  command = /usr/bin/cmake --regenerate-during-build -S/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-subbuild -B/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-subbuild
   description = Re-running CMake...
   generator = 1
 

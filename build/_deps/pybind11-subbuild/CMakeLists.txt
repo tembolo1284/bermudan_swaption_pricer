@@ -14,8 +14,8 @@ project(pybind11-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(pybind11-populate
                      "UPDATE_DISCONNECTED" "False" "URL" "https://github.com/pybind/pybind11/archive/refs/tags/v2.12.0.zip"
-                    SOURCE_DIR          "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-src"
-                    BINARY_DIR          "/home/paullopez/cpp-workspace/bermudan_swaption_pricer/build/_deps/pybind11-build"
+                    SOURCE_DIR          "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-src"
+                    BINARY_DIR          "/home/paullopez/cpp-workspace/finance_projects/bermudan_swaption_pricer/build/_deps/pybind11-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""
