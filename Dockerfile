@@ -1,51 +1,53 @@
-# syntax=docker/dockerfile:1
-
-#####################
-# Build stage
-#####################
+# -------- Base images --------
 FROM ubuntu:22.04 AS build
 
-ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+
+# System deps for compiling C++ + pybind11 ext + finding QuantLib via pkg-config
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential cmake ninja-build git ca-certificates \
-    python3 python3-pip python3-venv \
+    python3 python3-pip python3-dev \
+    pkg-config \
     libquantlib0-dev \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+# Copy source
 COPY . /app
 
-# Build C++ library and the pybind11 extension
-RUN cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+# Configure & build
+# We set PYTHONPATH for the pybind11 module import path at runtime in the final image,
+# but define it here too so tools that try to expand it don't warn.
+ENV PYTHONPATH=/app/build
+
+RUN cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build
 
-# Create venv and install API deps
-RUN python3 -m venv /venv
-ENV PATH=/venv/bin:$PATH
-WORKDIR /app/python_api
-RUN pip install --no-cache-dir -U pip
-RUN pip install --no-cache-dir fastapi uvicorn pydantic
+# Optionally run tests during build (uncomment if you want CI to fail on tests)
+# RUN ctest --test-dir build --output-on-failure
 
-#####################
-# Runtime stage
-#####################
+# -------- Runtime image --------
 FROM ubuntu:22.04 AS runtime
-ARG DEBIAN_FRONTEND=noninteractive
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Only what we need to run binaries + Python module
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libquantlib0v5 python3 \
+    libquantlib0v5 \
+    python3 \
  && rm -rf /var/lib/apt/lists/*
 
-# copy venv and app
-COPY --from=build /venv /venv
-ENV PATH=/venv/bin:$PATH
+# Put binaries on PATH
+COPY --from=build /app/build/bermudan_main /usr/local/bin/bermudan_main
 
-WORKDIR /app
-COPY python_api /app/python_api
-COPY --from=build /app/build/bermudan_native*.so /app/build/
+# Install the native Python extension & set import path
+# (We keep the .so in a dedicated dir and add it to PYTHONPATH)
+RUN mkdir -p /opt/bermudan
+COPY --from=build /app/build/bermudan_native*.so /opt/bermudan/
+ENV PYTHONPATH=/opt/bermudan
 
-# Make the module importable
-ENV PYTHONPATH=/app/build:$PYTHONPATH
-
-EXPOSE 8000
-CMD ["uvicorn", "python_api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+# If you want to run the CLI by default:
+CMD ["bermudan_main"]
+# For serving the FastAPI (if you later copy the app), you'd switch CMD to uvicorn.
 

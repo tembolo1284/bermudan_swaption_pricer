@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="0" disabled="0" errors="0" time="1.489" timestamp="2025-08-17T14:56:02.115" name="AllTests">
+  <testsuite name="YieldCurveBuilder" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2025-08-17T14:56:02.115">
+    <testcase name="FlatCurveBuilds" file="/app/test/test_curve.cpp" line="9" status="run" result="completed" time="0." timestamp="2025-08-17T14:56:02.115" classname="YieldCurveBuilder" />
+  </testsuite>
+  <testsuite name="SwapBuilder" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0." timestamp="2025-08-17T14:56:02.115">
+    <testcase name="FairRateAndNPVSign" file="/app/test/test_swap.cpp" line="10" status="run" result="completed" time="0." timestamp="2025-08-17T14:56:02.115" classname="SwapBuilder" />
+  </testsuite>
+  <testsuite name="BermudanSwaptionPricer" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0.011" timestamp="2025-08-17T14:56:02.116">
+    <testcase name="MonotonicityHW" file="/app/test/test_bermudan.cpp" line="13" status="run" result="completed" time="0.011" timestamp="2025-08-17T14:56:02.116" classname="BermudanSwaptionPricer" />
+  </testsuite>
+  <testsuite name="Calibration" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="1.477" timestamp="2025-08-17T14:56:02.127">
+    <testcase name="Diagonal_G2pp_HW_BK" file="/app/test/test_calibration.cpp" line="122" status="run" result="completed" time="1.477" timestamp="2025-08-17T14:56:02.127" classname="Calibration" />
+  </testsuite>
+</testsuites>
